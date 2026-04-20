@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.4.1-runtime-ubuntu22.04
+FROM nvidia/cuda:12.8.1-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
@@ -8,11 +8,13 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HF_HOME=/workspace/.cache/huggingface \
     TORCH_HOME=/workspace/.cache/torch \
     PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+    CUDA_FORCE_PTX_JIT=1 \
     COMFY_PORT=8188 \
     COMFY_LISTEN=0.0.0.0 \
     COMFY_CORS_ORIGIN=*
 
 ARG COMFYUI_COMMIT=a2840e75520b7dc40958866b3c4da1345d5cfa9c
+ARG TORCH_INDEX_URL=https://download.pytorch.org/whl/cu128
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
@@ -22,9 +24,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git-lfs \
     libgl1 \
     libglib2.0-0 \
-    python3 \
+    python3.11 \
     python3-pip \
     python3-venv \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git lfs install --system \
@@ -32,9 +35,9 @@ RUN git lfs install --system \
 
 RUN python3 -m pip install \
     torch torchvision torchaudio \
-    --index-url https://download.pytorch.org/whl/cu124
+    --index-url ${TORCH_INDEX_URL}
 
-RUN python3 -m pip install xformers --index-url https://download.pytorch.org/whl/cu124 || true
+RUN python3 -m pip install xformers --index-url ${TORCH_INDEX_URL} || true
 RUN python3 -m pip install sageattention || true
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /opt/ComfyUI \
