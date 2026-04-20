@@ -2,6 +2,10 @@
 
 Minimal RunPod-oppsett for en stabil ComfyUI-start med `WAN_22_XXX.json` ferdig lagt inn som vanlig workflow.
 
+Publisert image er ment å bli:
+
+- `ghcr.io/feddakalkun/runpod_fedda_comfyui:latest`
+
 ## Mål
 
 - så rask og stabil oppstart som mulig
@@ -21,6 +25,10 @@ Minimal RunPod-oppsett for en stabil ComfyUI-start med `WAN_22_XXX.json` ferdig 
 ## RunPod-template
 
 Bruk repo-roten som build context og `Dockerfile` i repo-roten.
+
+Hvis GitHub Actions-builden har kjørt ferdig, kan du i stedet bruke container-imaget direkte:
+
+- `ghcr.io/feddakalkun/runpod_fedda_comfyui:latest`
 
 Anbefalte template-verdier:
 
