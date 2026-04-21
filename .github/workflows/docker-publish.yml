@@ -24,15 +24,15 @@ jobs:
             cuda_image: nvidia/cuda:12.4.1-runtime-ubuntu22.04
             torch_index_url: https://download.pytorch.org/whl/cu124
             tags: |
-              ghcr.io/${{ env.IMAGE_NAME }}:latest
-              ghcr.io/${{ env.IMAGE_NAME }}:cu124
-              ghcr.io/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+              ghcr.io/feddakalkun/runpod_fedda_comfyui:latest
+              ghcr.io/feddakalkun/runpod_fedda_comfyui:cu124
+              ghcr.io/feddakalkun/runpod_fedda_comfyui:sha-${{ github.sha }}
           - name: cuda128-blackwell
             cuda_image: nvidia/cuda:12.8.1-runtime-ubuntu22.04
             torch_index_url: https://download.pytorch.org/whl/cu128
             tags: |
-              ghcr.io/${{ env.IMAGE_NAME }}:cu128
-              ghcr.io/${{ env.IMAGE_NAME }}:blackwell
+              ghcr.io/feddakalkun/runpod_fedda_comfyui:cu128
+              ghcr.io/feddakalkun/runpod_fedda_comfyui:blackwell
 
     steps:
       - name: Checkout
