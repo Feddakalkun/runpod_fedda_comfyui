@@ -1,4 +1,5 @@
-FROM nvidia/cuda:12.8.1-runtime-ubuntu22.04
+ARG CUDA_IMAGE=nvidia/cuda:12.4.1-runtime-ubuntu22.04
+FROM ${CUDA_IMAGE}
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
@@ -8,13 +9,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HF_HOME=/workspace/.cache/huggingface \
     TORCH_HOME=/workspace/.cache/torch \
     PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
-    CUDA_FORCE_PTX_JIT=1 \
     COMFY_PORT=8188 \
     COMFY_LISTEN=0.0.0.0 \
     COMFY_CORS_ORIGIN=*
 
 ARG COMFYUI_COMMIT=a2840e75520b7dc40958866b3c4da1345d5cfa9c
-ARG TORCH_INDEX_URL=https://download.pytorch.org/whl/cu128
+ARG TORCH_INDEX_URL=https://download.pytorch.org/whl/cu124
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \

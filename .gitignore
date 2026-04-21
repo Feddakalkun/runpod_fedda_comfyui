@@ -9,3 +9,4 @@ input/
 output/
 models/
 .cache/
+_upload_tmp/

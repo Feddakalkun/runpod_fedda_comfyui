@@ -8,3 +8,4 @@ models
 .cache
 __pycache__
 *.log
+_upload_tmp
