@@ -1,6 +1,6 @@
 # fedda_comfyui_runpod
 
-Minimal RunPod-oppsett for en stabil ComfyUI-start med `WAN_22_XXX.json` ferdig lagt inn som vanlig workflow.
+Minimal RunPod-oppsett for en stabil ComfyUI-start med `WAN_22_XXX.json` og `WAN_22_XXX_img2vid.json` ferdig lagt inn som vanlige workflows.
 
 Publisert image er ment å bli:
 
@@ -19,7 +19,7 @@ Publisert image er ment å bli:
 - `Dockerfile` bygger et rent ComfyUI-image for RunPod
 - `runpod_start.sh` symlinker `/workspace` inn i ComfyUI og starter serveren
 - `install_nodes.sh` kloner node-repoene workflowen trenger
-- `WAN_22_XXX.json` blir lagt inn ved oppstart
+- `WAN_22_XXX.json` og `WAN_22_XXX_img2vid.json` blir lagt inn ved oppstart
 - `styles.csv` gir en minimal `No Style`-fil for `Load Styles CSV`-noden
 
 ## RunPod-template
@@ -52,9 +52,10 @@ Ved oppstart opprettes og kobles disse inn:
 - `/workspace/output`
 - `/workspace/user/default/workflows`
 
-Det betyr at workflowen din ender her inne i podden:
+Det betyr at workflowene dine ender her inne i podden:
 
 - `/workspace/user/default/workflows/WAN_22_XXX.json`
+- `/workspace/user/default/workflows/WAN_22_XXX_img2vid.json`
 
 ## Workflow-avhengigheter
 
@@ -77,16 +78,13 @@ Denne workflowen bruker blant annet:
 - `ComfyUI-Styles_CSV_Loader`
 - `ComfyUI-wanBlockswap`
 
-## Modellfiler workflowen peker på
+## Modellfiler workflowene peker på
 
-Workflowen refererer til minst disse basefilene:
+`WAN_22_XXX_img2vid.json` er strammet inn for img2vid og laster bare disse basefilene:
 
-- `diffusion_models/wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors`
-- `diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors`
-- `diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors`
 - `diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors`
+- `diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors`
 - `clip/nsfw_wan_umt5-xxl_fp8_scaled.safetensors`
 - `vae/wan_2.1_vae.safetensors`
-- `clip_vision/clip_vision_h.safetensors`
 
-Den har også en `HuggingFaceDownloader`-node som peker på flere LoRA-er og basefiler. For minimal storage bør vi i neste steg stramme inn den listen til bare de LoRA-ene du faktisk vil bruke aktivt.
+Img2vid-workflowens `HuggingFaceDownloader` beholder også alle LoRA-filene som er aktive i `Power Lora Loader`-nodene, men fjerner T2V-modeller og andre filer som ikke brukes av denne workflowen.

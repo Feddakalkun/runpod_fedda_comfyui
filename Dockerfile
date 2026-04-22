@@ -51,6 +51,7 @@ RUN chmod +x /opt/install_nodes.sh && /opt/install_nodes.sh
 COPY styles.csv /opt/ComfyUI/styles.csv
 COPY styles.csv /opt/fedda/styles.csv
 COPY WAN_22_XXX.json /opt/fedda/workflows/WAN_22_XXX.json
+COPY WAN_22_XXX_img2vid.json /opt/fedda/workflows/WAN_22_XXX_img2vid.json
 COPY runpod_start.sh /usr/local/bin/runpod_start.sh
 
 RUN chmod +x /usr/local/bin/runpod_start.sh \
